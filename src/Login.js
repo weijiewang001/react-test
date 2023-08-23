@@ -1,5 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { getToken } from './api';
+
 
 function Login() {
   const [user, setUser] = useState({
@@ -8,6 +11,8 @@ function Login() {
   })
 
   const [disabled, setDisabled] = useState(true)
+  const [cookies, setCookie] = useCookies(['jwt']);
+  const navigate = useNavigate();
 
   const handleUsername = (e) => {
     setUser({
@@ -27,9 +32,15 @@ function Login() {
     e.preventDefault()
   }
 
-  const handleSignIn = () => {
-    console.log("submit")
+  const handleSignIn = async () => {
+    let jwt = await getToken()
+    if(jwt){
+      setCookie('jwt',jwt)
+      navigate("/search");
+    }
   }
+    // const getToken = async () => {
+    // }
   // useCallback can avoid the same function re-render again
   const handleDisabled = useCallback(() => {
     if (user.username && user.password) {
@@ -37,7 +48,6 @@ function Login() {
     } else {
       setDisabled(true)
     }
-    console.log("gooood")
   }
     , [user.password, user.username])
 

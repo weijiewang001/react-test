@@ -2,6 +2,7 @@ import Login from "./Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NotFound from "./NotFound";
 import Search from "./Search";
+import SearchResult from "./SearchResult";
 
 function App() {
   return (
