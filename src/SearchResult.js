@@ -3,8 +3,7 @@ import "./index.css"
 
 function SearchResult({ dataArray }) {
   const renderCards = dataArray.map((item) => {
-    console.log(item)
-    return <SearchCard key={item.id} data={item.fields}></SearchCard>
+    return <SearchCard key={item.id} data={item.fields}></SearchCard>;
   })
 
   return (
@@ -13,7 +12,6 @@ function SearchResult({ dataArray }) {
         {renderCards}
       </div>
     </div>
-
   )
 }
 

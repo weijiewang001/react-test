@@ -38,7 +38,8 @@ function Login() {
 
   const handleSignIn = async () => {
     try {
-      let jwt = await getToken(user.username,user.password)
+      let data = await getToken(user.username,user.password);
+      let jwt = data.access_token;
       if (jwt) {
         setCookie('jwt', jwt)
         setAuthState({
@@ -56,20 +57,23 @@ function Login() {
         jwt: '',
         data: null,
       })
+      if(error.status === 404){
+        navigate("*")
+      }
     }
-  }
+  };
   const handleDisabled = useCallback(() => {
     if (user.username && user.password) {
-      setDisabled(false)
+      setDisabled(false);
     } else {
-      setDisabled(true)
+      setDisabled(true);
     }
   }
-    , [user.password, user.username])
+    , [user.password, user.username]);
 
   useEffect(() => {
     handleDisabled()
-  }, [user.username, user.password, handleDisabled])
+  }, [user.username, user.password, handleDisabled]);
 
   return (
     <div>
@@ -90,7 +94,7 @@ function Login() {
                     <label className="form-label">Password</label>
                     <input type="password" className="form-control" id="password" name="password" required value={user.password} onChange={handlePassword} />
                   </div>
-                  {error ? <p>{error}</p> : null}
+                  {error ? <p style={{color:"red"}}>{error}</p> : null}
                   <button type="submit" className="btn btn-primary" onClick={handleSignIn} disabled={disabled}>Login</button>
                 </form>
               </div>
