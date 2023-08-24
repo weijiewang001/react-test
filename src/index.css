@@ -19,3 +19,11 @@ code {
 .SearchButton{
   margin: 30px 0px;
 }
+
+.card-link{
+  cursor: pointer;
+}
+
+.customTitle{
+  height: 48px;
+}

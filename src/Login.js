@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { getToken } from './api';
+import useAuthentication from './hooks/useAuthenticationContext';
+
 
 
 function Login() {
@@ -9,6 +11,8 @@ function Login() {
     username: '',
     password: '',
   })
+
+  const { error, setAuthState } = useAuthentication()
 
   const [disabled, setDisabled] = useState(true)
   const [cookies, setCookie] = useCookies(['jwt']);
@@ -33,15 +37,27 @@ function Login() {
   }
 
   const handleSignIn = async () => {
-    let jwt = await getToken()
-    if(jwt){
-      setCookie('jwt',jwt)
-      navigate("/search");
+    try {
+      let jwt = await getToken(user.username,user.password)
+      if (jwt) {
+        setCookie('jwt', jwt)
+        setAuthState({
+          error: null,
+          loading: false,
+          jwt,
+          data: null,
+        })
+        navigate("/search");
+      }
+    } catch (error) {
+      setAuthState({
+        error: error.message,
+        loading: false,
+        jwt: '',
+        data: null,
+      })
     }
   }
-    // const getToken = async () => {
-    // }
-  // useCallback can avoid the same function re-render again
   const handleDisabled = useCallback(() => {
     if (user.username && user.password) {
       setDisabled(false)
@@ -74,6 +90,7 @@ function Login() {
                     <label className="form-label">Password</label>
                     <input type="password" className="form-control" id="password" name="password" required value={user.password} onChange={handlePassword} />
                   </div>
+                  {error ? <p>{error}</p> : null}
                   <button type="submit" className="btn btn-primary" onClick={handleSignIn} disabled={disabled}>Login</button>
                 </form>
               </div>
