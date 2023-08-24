@@ -59,7 +59,7 @@ export function getData(jwt) {
   const requestPromise = axios.get("/products/search?q.parser=structured&sort=date%20asc&q=venue_code%3A%20%27SSD%27", {
     headers: {
       "Authorization": `Bearer ${jwt}`,
-      "x-api-key": "DwGxgC2Fyp2IFZTvz5sb2L"
+      "x-api-key": "DwGxgC2Fyp2IFZTvz5Y9e69mZOcwnA0h6coCsb2L"
     }
   })
 

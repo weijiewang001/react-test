@@ -57,6 +57,8 @@ function Login() {
         jwt: '',
         data: null,
       })
+      // My approach if the login API is down.
+      // I will navigate to the 404 webpage
       if(error.status === 404){
         navigate("*")
       }

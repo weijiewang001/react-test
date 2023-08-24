@@ -16,7 +16,6 @@ function SearchCard({ data }) {
           <a href={data.Purchase} className="card-link">
             <button className="btn btn-primary">Purchase</button>
           </a>
-          {/* <a href="#" className="card-link">Another link</a> */}
         </div>
       </div>
     </div>

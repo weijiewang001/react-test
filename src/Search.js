@@ -28,7 +28,7 @@ function Search() {
       localStorage.setItem('data', JSON.stringify(requestData));
     } catch (error) {
       // My approach if the Product Search API is down.
-      // I will display the message that search API return in the webpage.
+      // I will navigate to the 404 webpage
       setsearchError(error.message);
       if (error.status === 404) {
         navigate("*")
@@ -43,6 +43,8 @@ function Search() {
     else if (localStorage.getItem('data')) {
       const backupData = JSON.parse(localStorage.getItem('data'));
       return <SearchResult dataArray={backupData.hits.hit}></SearchResult>
+    }else {
+      return null;
     }
   };
 
