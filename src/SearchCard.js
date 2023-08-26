@@ -4,18 +4,23 @@ function SearchCard({ data }) {
       <div className="card d-flex flex-column">
         <img src={`https://picsum.photos/seed/${data.date}/200/300`} className="card-img-top" alt="feature" />
         <div className="card-body">
-          <h5 className="card-title customTitle">{data.title}</h5>
+          <div className="searchCardBody">
+            <h5 className="card-title searchCardBody-title">{data.title}</h5>
+            <span className="searchCardBody-sale">On Sale</span>
+          </div>
           <p className="card-text">{data.venue_city}</p>
           <p className="card-text">{data.when}</p>
         </div>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">Product Type: {data.product_types.join(',')}</li>
           <li className="list-group-item">Venue Name: {data.venue_name}</li>
+          <li className="list-group-item searchCardBody-refund">{data.allow_refund ? "Refundable": "Not Refundable"}</li>
         </ul>
-        <div className="card-body">
+        <div className="card-body purchaseSection">
           <a href={data.Purchase} className="card-link">
-            <button className="btn btn-primary">Purchase</button>
+            <button className="btn btn-primary" disabled={data.is_sold_out && parseInt(data.is_sold_out)}>Purchase</button>
           </a>
+          {data.is_sold_out && parseInt(data.is_sold_out)?<span className="soldOut">Sold out</span>:null}
         </div>
       </div>
     </div>
