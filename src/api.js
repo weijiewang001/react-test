@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const timer = 8000;
+const time_Ms = 8000;
 
 // set a timer to keep time that when send a API request 
 function timeout(ms, promise) {
@@ -37,7 +37,7 @@ export function getToken(username, password) {
     },
   });
 
-  return timeout(timer, requestPromise)
+  return timeout(time_Ms, requestPromise)
     .then(response => {
       return response.data;
     })
@@ -63,7 +63,7 @@ export function getData(jwt) {
     }
   })
 
-  return timeout(timer, requestPromise)
+  return timeout(time_Ms, requestPromise)
     .then(response => {
       return response.data;
     })
