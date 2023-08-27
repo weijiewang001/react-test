@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Search() {
-  const [cookies, setCookies] = useCookies(['jwt']);
+  const [cookies] = useCookies(['jwt']);
   const { jwt, data, setAuthState } = useAuthentication();
   const [searchError, setsearchError] = useState(null);
   const navigate = useNavigate()
@@ -60,11 +60,7 @@ function Search() {
         </div>
       </div>
       {renderData()}
-
-
     </div>
-
-
   );
 }
 

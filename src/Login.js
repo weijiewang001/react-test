@@ -5,7 +5,6 @@ import { getToken } from './api';
 import useAuthentication from './hooks/useAuthenticationContext';
 
 
-
 function Login() {
   const [user, setUser] = useState({
     username: '',
